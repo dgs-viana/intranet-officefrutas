@@ -1,33 +1,76 @@
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# ===============================
+# VARIAVEIS DE AMBIENTE / SEGREDOS
+# ===============================
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+.env
+.env.*
+!.env.example
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+
+# ===============================
+# JAVA / MAVEN
+# ===============================
+
+**/target/
+*.class
+*.log
+
+
+# ===============================
+# FRONTEND / NODE
+# ===============================
+
+**/node_modules/
+**/dist/
+
+
+# ===============================
+# INTELLIJ
+# ===============================
+
+.idea/
 *.iml
+*.iws
 *.ipr
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### VS Code ###
-.vscode/
+# ===============================
+# SISTEMA OPERACIONAL
+# ===============================
+
+.DS_Store
+Thumbs.db
+
+
+# ===============================
+# CONFIGURACOES LOCAIS
+# ===============================
+
+**/application-local.properties
+**/application-local.yml
+**/application-local.yaml
+
+
+# ===============================
+# ORACLE WALLET
+# NUNCA ENVIAR PARA O GITHUB
+# ===============================
+
+**/Wallet_*.zip
+**/Wallet_*/
+**/wallet_*/
+
+**/cwallet.sso
+**/ewallet.p12
+**/ewallet.pem
+
+**/keystore.jks
+**/truststore.jks
+
+**/ojdbc.properties
+**/sqlnet.ora
+**/tnsnames.ora
+
+*.p12
+*.sso
+*.jks
