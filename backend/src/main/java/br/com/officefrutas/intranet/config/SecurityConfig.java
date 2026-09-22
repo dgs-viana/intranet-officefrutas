@@ -32,9 +32,24 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
 
+                        /*
+                         * Rotas públicas.
+                         *
+                         * Login precisa estar acessível sem token,
+                         * pois é justamente por ele que o usuário
+                         * recebe o JWT.
+                         *
+                         * Health é usado apenas para verificar
+                         * se a aplicação está funcionando.
+                         */
                         .requestMatchers(
                                 "/api/auth/login",
                                 "/error")
+                        .permitAll()
+
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/health")
                         .permitAll()
 
                         /*
@@ -72,11 +87,15 @@ public class SecurityConfig {
                                 "RH",
                                 "ADMIN")
 
+                        /*
+                         * Qualquer outra rota exige autenticação.
+                         */
                         .anyRequest()
                         .authenticated())
 
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(
-                        jwtAuthenticationConverter)));
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(
+                        jwt -> jwt.jwtAuthenticationConverter(
+                                jwtAuthenticationConverter)));
 
         return http.build();
     }
@@ -84,7 +103,8 @@ public class SecurityConfig {
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
 
-        JwtGrantedAuthoritiesConverter authoritiesConverter = new JwtGrantedAuthoritiesConverter();
+        JwtGrantedAuthoritiesConverter authoritiesConverter =
+                new JwtGrantedAuthoritiesConverter();
 
         authoritiesConverter.setAuthoritiesClaimName(
                 "perfil");
@@ -92,7 +112,8 @@ public class SecurityConfig {
         authoritiesConverter.setAuthorityPrefix(
                 "ROLE_");
 
-        JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
+        JwtAuthenticationConverter converter =
+                new JwtAuthenticationConverter();
 
         converter.setJwtGrantedAuthoritiesConverter(
                 authoritiesConverter);
